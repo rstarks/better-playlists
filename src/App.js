@@ -12,33 +12,33 @@ let fakeServerData = {
       {
         name: 'My favorites',
         songs: [
-          {name:'One', duration: 1345},
-          {name:'Two', duration: 1234},
-          {name:'Three', duration: 1515}
+          {name:'One', duration: 345},
+          {name:'Two', duration: 234},
+          {name:'Three', duration: 415}
         ]
       },
       {
         name: 'Discover Weekly',
         songs: [
-          {name:'Four', duration: 635},
-          {name:'Five', duration: 1236},
-          {name:'Six', duration: 1634}
+          {name:'Four', duration: 231},
+          {name:'Five', duration: 221},
+          {name:'Six', duration: 234}
         ]
       },
       {
         name: 'Another playlist',
         songs: [
-          {name:'Seven', duration: 972},
-          {name:'Eight', duration: 1614},
-          {name:'Nine', duration: 1712}
+          {name:'Seven', duration: 272},
+          {name:'Eight', duration: 114},
+          {name:'Nine', duration: 312}
         ]
       },
       {
         name: 'Yet another playlist',
         songs: [
-          {name:'Ten', duration: 1261},
-          {name:'Eleven', duration: 834},
-          {name:'Twelve', duration: 1231}
+          {name:'Ten', duration: 261},
+          {name:'Eleven', duration: 194},
+          {name:'Twelve', duration: 181}
         ]
       }
     ]
@@ -65,7 +65,7 @@ class HoursCounter extends Component {
     }, 0)
     return (
       <div style={{...defaultStyle, width: "40%", display:'inline-block'}}>
-        <h2>{Math.round(totalDuration/60)} hours</h2>
+        <h2>{Math.round(totalDuration/60)} minutes</h2>
       </div>
     );
   }
@@ -84,14 +84,15 @@ class Filter extends Component {
 
 class Playlist extends Component {
   render() {
+    let playlist = this.props.playlist
     return (
       <div style={{...defaultStyle,display:'inline-block',width: "25%"}}>
         <img/>
-        <h3>Playlist Name</h3>
+        <h3>{playlist.name}</h3>
         <ul>
-          <li>Song 1</li>
-          <li>Song 2</li>
-          <li>Song 3</li>
+          {playlist.songs.map(song => 
+            <li>{song.name}</li>
+          )}
         </ul>
       </div>
     );
@@ -121,10 +122,11 @@ class App extends Component {
             <HoursCounter playlists={this.state.serverData.user.playlists}/>
             
             <Filter/>
-            <Playlist/>
-            <Playlist/>
-            <Playlist/>
-            <Playlist/>
+            
+            {this.state.serverData.user.playlists.map(playlist =>
+              <Playlist playlist={playlist}/>
+            )}
+
           </div> : <h1 style={defaultStyle}>Loading...</h1>
         }
       </div>
